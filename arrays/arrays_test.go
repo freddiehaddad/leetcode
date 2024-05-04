@@ -77,6 +77,99 @@ func TestMerge(t *testing.T) {
 	}
 }
 
+func TestRotateArray(t *testing.T) {
+	tests := []struct {
+		input    []int
+		k        int
+		expected []int
+	}{
+		{
+			[]int{1},
+			0,
+			[]int{1},
+		},
+		{
+			[]int{1},
+			1,
+			[]int{1},
+		},
+		{
+			[]int{1},
+			2,
+			[]int{1},
+		},
+		{
+			[]int{1, 2},
+			0,
+			[]int{1, 2},
+		},
+		{
+			[]int{1, 2},
+			1,
+			[]int{2, 1},
+		},
+		{
+			[]int{1, 2},
+			2,
+			[]int{1, 2},
+		},
+		{
+			[]int{1, 2},
+			3,
+			[]int{2, 1},
+		},
+		{
+			[]int{1, 2},
+			4,
+			[]int{1, 2},
+		},
+		{
+			[]int{1, 2, 3},
+			0,
+			[]int{1, 2, 3},
+		},
+		{
+			[]int{1, 2, 3},
+			1,
+			[]int{3, 1, 2},
+		},
+		{
+			[]int{1, 2, 3},
+			2,
+			[]int{2, 3, 1},
+		},
+		{
+			[]int{1, 2, 3},
+			3,
+			[]int{1, 2, 3},
+		},
+		{
+			[]int{1, 2, 3},
+			4,
+			[]int{3, 1, 2},
+		},
+		{
+			[]int{-1, -100, 3, 99},
+			2,
+			[]int{3, 99, -1, -100},
+		},
+		{
+			[]int{1, 2, 3, 4, 5, 6, 7},
+			3,
+			[]int{5, 6, 7, 1, 2, 3, 4},
+		},
+	}
+
+	for i, test := range tests {
+		rotate(test.input, test.k)
+		if slices.Compare(
+			test.input, test.expected) != 0 {
+			t.Errorf("[%d] result wrong. expected=%v got=%v",
+				i, test.expected, test.input)
+		}
+	}
+}
+
 func TestRemoveDuplicates(t *testing.T) {
 	tests := []struct {
 		nums     []int

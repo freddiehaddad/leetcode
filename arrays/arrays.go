@@ -134,3 +134,24 @@ func removeElement(nums []int, val int) int {
 
 	return k
 }
+
+// Given an integer array nums, rotate the array to the right by k steps, where
+// k is non-negative.
+func rotate(nums []int, k int) {
+	k = k % len(nums)
+
+	// reverse entire array
+	for i, j := 0, len(nums)-1; i < j; i, j = i+1, j-1 {
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+
+	// reverse first k elements
+	for i, j := 0, k-1; i < j; i, j = i+1, j-1 {
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+
+	// reverse the last k elements
+	for i, j := k, len(nums)-1; i < j; i, j = i+1, j-1 {
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+}
