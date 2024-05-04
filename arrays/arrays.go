@@ -20,6 +20,37 @@ func canJump(nums []int) bool {
 	return true
 }
 
+// You are given a 0-indexed array of integers nums of length n. You are
+// initially positioned at nums[0].
+//
+// Each element nums[i] represents the maximum length of a forward jump from
+// index i. In other words, if you are at nums[i], you can jump to any
+// nums[i+j] where:
+//
+//   - 0 <= j <= nums[i]
+//   - i + j < n
+//
+// Return the minimum number of jumps to reach nums[n-1]. The test cases are
+// generated such that you can reach nums[n-1].
+//
+// Constraints:
+//
+//   - 1 <= nums.length <= 10^4
+//   - 0 <= nums[i] <= 1000
+//   - It's guaranteed that you can reach nums[n-1]
+func canJumpII(nums []int) int {
+	var farthest, jumps, nextJump int
+	for i := 0; i < len(nums)-1; i++ {
+		farthest = max(farthest, i+nums[i])
+
+		if i == nextJump {
+			nextJump = farthest
+			jumps += 1
+		}
+	}
+	return jumps
+}
+
 // Given an array nums of size n, return the majority element.
 //
 // The majority element is the element that appears more than ⌊n / 2⌋ times.
