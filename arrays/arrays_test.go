@@ -81,6 +81,30 @@ func TestCanJumpII(t *testing.T) {
 	}
 }
 
+func TestHIndex(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{1, 3, 1},
+			1,
+		},
+		{
+			[]int{3, 0, 6, 1, 5},
+			3,
+		},
+	}
+
+	for i, test := range tests {
+		result := hIndex(test.input)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, result)
+		}
+	}
+}
+
 func TestMajoriyElement(t *testing.T) {
 	tests := []struct {
 		input    []int

@@ -51,6 +51,33 @@ func canJumpII(nums []int) int {
 	return jumps
 }
 
+// Given an array of integers citations where citations[i] is the number of
+// citations a researcher received for their ith paper, return the researcher's
+// h-index.
+//
+// According to the definition of h-index on Wikipedia: The h-index is defined
+// as the maximum value of h such that the given researcher has published at
+// least h papers that have each been cited at least h times.
+func hIndex(citations []int) int {
+	n := len(citations)
+	counts := make([]int, n+1)
+	for _, c := range citations {
+		if c > n {
+			counts[n]++
+		} else {
+			counts[c]++
+		}
+	}
+	var count int
+	for ; n > 0; n-- {
+		count += counts[n]
+		if count >= n {
+			return n
+		}
+	}
+	return 0
+}
+
 // Given an array nums of size n, return the majority element.
 //
 // The majority element is the element that appears more than ⌊n / 2⌋ times.
