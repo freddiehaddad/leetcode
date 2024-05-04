@@ -44,3 +44,40 @@ func TestMerge(t *testing.T) {
 		}
 	}
 }
+
+func TestRemoveElement(t *testing.T) {
+	tests := []struct {
+		nums     []int
+		val      int
+		expected []int
+	}{
+		{
+			[]int{1},
+			1,
+			[]int{},
+		},
+		{
+			[]int{3, 2, 2, 3},
+			3,
+			[]int{2, 2},
+		},
+		{
+			[]int{0, 1, 2, 2, 3, 0, 4, 2},
+			2,
+			[]int{0, 1, 3, 0, 4},
+		},
+	}
+
+	for i, test := range tests {
+		k := removeElement(test.nums, test.val)
+		if len(test.expected) != k {
+			t.Errorf("[%d] length wrong. expected=%d got=%d",
+				i, len(test.expected), k)
+		}
+		if slices.Compare(
+			test.nums[:len(test.expected)], test.expected) != 0 {
+			t.Errorf("[%d] result wrong. expected=%v got=%v",
+				i, test.expected, test.nums[:len(test.expected)])
+		}
+	}
+}
