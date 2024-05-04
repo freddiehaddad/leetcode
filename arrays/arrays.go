@@ -1,5 +1,25 @@
 package arrays
 
+// You are given an integer array nums. You are initially positioned at the
+// array's first index, and each element in the array represents your maximum
+// jump length at that position.
+//
+// Return true if you can reach the last index, or false otherwise.
+func canJump(nums []int) bool {
+	var position int
+	for i := 1; i < len(nums); i++ {
+		remaining := nums[position] - (i - position)
+		if remaining < 0 {
+			return false
+		}
+
+		if nums[i] > remaining {
+			position = i
+		}
+	}
+	return true
+}
+
 // Given an array nums of size n, return the majority element.
 //
 // The majority element is the element that appears more than ⌊n / 2⌋ times.

@@ -5,6 +5,46 @@ import (
 	"testing"
 )
 
+func TestCanJump(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected bool
+	}{
+		{
+			[]int{1},
+			true,
+		},
+		{
+			[]int{0},
+			true,
+		},
+		{
+			[]int{1, 0},
+			true,
+		},
+		{
+			[]int{0, 1},
+			false,
+		},
+		{
+			[]int{2, 3, 1, 1, 4},
+			true,
+		},
+		{
+			[]int{3, 2, 1, 0, 4},
+			false,
+		},
+	}
+
+	for i, test := range tests {
+		m := canJump(test.input)
+		if test.expected != m {
+			t.Errorf("[%d] result wrong. expected=%t got=%t",
+				i, test.expected, m)
+		}
+	}
+}
+
 func TestMajoriyElement(t *testing.T) {
 	tests := []struct {
 		input    []int
