@@ -41,6 +41,29 @@ func maxProfit(prices []int) int {
 	return profit
 }
 
+// You are given an integer array prices where prices[i] is the price of a
+// given stock on the ith day.
+//
+// On each day, you may decide to buy and/or sell the stock. You can only hold
+// at most one share of the stock at any time. However, you can buy it then
+// immediately sell it on the same day.
+//
+// Find and return the maximum profit you can achieve.
+func maxProfitII(prices []int) int {
+	price := prices[0]
+	profit := 0
+
+	for _, val := range prices[1:] {
+		if p := val - price; p > 0 {
+			profit += p
+			price = val
+		}
+
+		price = min(price, val)
+	}
+	return profit
+}
+
 // You are given two integer arrays nums1 and nums2, sorted in non-decreasing
 // order, and two integers m and n, representing the number of elements in
 // nums1 and nums2 respectively.

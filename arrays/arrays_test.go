@@ -69,6 +69,42 @@ func TestMaxProfit(t *testing.T) {
 	}
 }
 
+func TestMaxProfitII(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{10},
+			0,
+		},
+		{
+			[]int{1, 3},
+			2,
+		},
+		{
+			[]int{1, 2, 3, 4, 5},
+			4,
+		},
+		{
+			[]int{7, 6, 4, 3, 1},
+			0,
+		},
+		{
+			[]int{7, 1, 5, 3, 6, 4},
+			7,
+		},
+	}
+
+	for i, test := range tests {
+		m := maxProfitII(test.input)
+		if test.expected != m {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, m)
+		}
+	}
+}
+
 func TestMerge(t *testing.T) {
 	tests := []struct {
 		nums1    []int
