@@ -22,6 +22,25 @@ func majorityElement(nums []int) int {
 	return m
 }
 
+// You are given an array prices where prices[i] is the price of a given stock
+// on the ith day.
+//
+// You want to maximize your profit by choosing a single day to buy one stock
+// and choosing a different day in the future to sell that stock.
+//
+// Return the maximum profit you can achieve from this transaction. If you
+// cannot achieve any profit, return 0.
+func maxProfit(prices []int) int {
+	price := prices[0]
+	profit := 0
+
+	for _, val := range prices[1:] {
+		profit = max(profit, val-price)
+		price = min(price, val)
+	}
+	return profit
+}
+
 // You are given two integer arrays nums1 and nums2, sorted in non-decreasing
 // order, and two integers m and n, representing the number of elements in
 // nums1 and nums2 respectively.
