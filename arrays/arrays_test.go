@@ -5,6 +5,38 @@ import (
 	"testing"
 )
 
+func TestMajoriyElement(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{1},
+			1,
+		},
+		{
+			[]int{1, 2, 1},
+			1,
+		},
+		{
+			[]int{2, 1, 2},
+			2,
+		},
+		{
+			[]int{2, 2, 1, 1, 1, 2, 2},
+			2,
+		},
+	}
+
+	for i, test := range tests {
+		m := majorityElement(test.input)
+		if test.expected != m {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, m)
+		}
+	}
+}
+
 func TestMerge(t *testing.T) {
 	tests := []struct {
 		nums1    []int

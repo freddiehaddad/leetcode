@@ -1,5 +1,27 @@
 package arrays
 
+// Given an array nums of size n, return the majority element.
+//
+// The majority element is the element that appears more than ⌊n / 2⌋ times.
+// You may assume that the majority element always exists in the array.
+//
+// See: Boyer-Moore majority vote algorithm
+func majorityElement(nums []int) int {
+	c := 1
+	m := nums[0]
+	for _, val := range nums[1:] {
+		if c == 0 {
+			m = val
+			c = 1
+		} else if m == val {
+			c++
+		} else {
+			c--
+		}
+	}
+	return m
+}
+
 // You are given two integer arrays nums1 and nums2, sorted in non-decreasing
 // order, and two integers m and n, representing the number of elements in
 // nums1 and nums2 respectively.
