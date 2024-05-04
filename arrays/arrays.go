@@ -176,6 +176,31 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 	}
 }
 
+// Given an integer array nums, return an array answer such that answer[i] is
+// equal to the product of all the elements of nums except nums[i].
+//
+// The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit
+// integer.
+//
+// You must write an algorithm that runs in O(n) time and without using the
+// division operation.
+func productExceptSelf(nums []int) []int {
+	products := make([]int, len(nums))
+	var multiply func(i, leftProduct int) int
+	multiply = func(i, leftProduct int) int {
+		// base case
+		if i == len(nums)-1 {
+			products[i] = leftProduct
+			return nums[i]
+		}
+		result := multiply(i+1, leftProduct*nums[i])
+		products[i] = leftProduct * result
+		return result * nums[i]
+	}
+	products[0] = multiply(1, nums[0])
+	return products
+}
+
 // Given an integer array nums sorted in non-decreasing order, remove the
 // duplicates in-place such that each unique element appears only once. The
 // relative order of the elements should be kept the same. Then return the

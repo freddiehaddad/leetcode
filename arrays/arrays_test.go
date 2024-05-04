@@ -245,6 +245,31 @@ func TestMerge(t *testing.T) {
 	}
 }
 
+func TestProductExceptSelf(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected []int
+	}{
+		{
+			[]int{1, 2, 3, 4},
+			[]int{24, 12, 8, 6},
+		},
+		{
+			[]int{-1, 1, 0, -3, 3},
+			[]int{0, 0, 9, 0, 0},
+		},
+	}
+
+	for i, test := range tests {
+		products := productExceptSelf(test.input)
+		if slices.Compare(
+			test.expected, products) != 0 {
+			t.Errorf("[%d] result wrong. expected=%v got=%v",
+				i, test.expected, products)
+		}
+	}
+}
+
 func TestRotateArray(t *testing.T) {
 	tests := []struct {
 		input    []int
