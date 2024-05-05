@@ -5,6 +5,37 @@ import (
 	"testing"
 )
 
+func TestBuildTreeIP(t *testing.T) {
+	tests := []struct {
+		inorder   []int
+		postorder []int
+	}{
+		{
+			[]int{9, 3, 15, 20, 7},
+			[]int{9, 15, 7, 20, 3},
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreeIP(test.inorder, test.postorder)
+		inorder := getInorderSlice(tree)
+		if slices.Compare(test.inorder, inorder) != 0 {
+			t.Errorf(
+				"[%d] inorder wrong. expected=%v got=%v",
+				i, test.inorder, inorder,
+			)
+		}
+		postorder := getPostorderSlice(tree)
+		if slices.Compare(test.postorder, postorder) != 0 {
+			t.Errorf(
+				"[%d] preorder wrong. expected=%v got=%v",
+				i, test.postorder, postorder,
+			)
+		}
+
+	}
+}
+
 func TestBuildTreePI(t *testing.T) {
 	tests := []struct {
 		preorder []int
@@ -50,6 +81,23 @@ func getInorderSlice(root *TreeNode) []int {
 	}
 
 	inorder(root)
+	return order
+}
+
+func getPostorderSlice(root *TreeNode) []int {
+	var order []int
+	var postorder func(*TreeNode)
+	postorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+
+		postorder(node.Left)
+		postorder(node.Right)
+		order = append(order, node.Val)
+	}
+
+	postorder(root)
 	return order
 }
 
