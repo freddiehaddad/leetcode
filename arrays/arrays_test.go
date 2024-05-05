@@ -32,6 +32,34 @@ func TestCanCompleteCircuit(t *testing.T) {
 	}
 }
 
+func TestCandy(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{1, 2, 2},
+			4,
+		},
+		{
+			[]int{1, 0, 2},
+			5,
+		},
+		{
+			[]int{1, 3, 2, 2, 1},
+			7,
+		},
+	}
+
+	for i, test := range tests {
+		count := candy(test.input)
+		if test.expected != count {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, count)
+		}
+	}
+}
+
 func TestCanJump(t *testing.T) {
 	tests := []struct {
 		input    []int
