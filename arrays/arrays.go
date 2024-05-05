@@ -51,6 +51,47 @@ func canJumpII(nums []int) int {
 	return jumps
 }
 
+// There are n gas stations along a circular route, where the amount of gas at
+// the ith station is gas[i].
+//
+// You have a car with an unlimited gas tank and it costs cost[i] of gas to
+// travel from the ith station to its next (i + 1)th station. You begin the
+// journey with an empty tank at one of the gas stations.
+//
+// Given two integer arrays gas and cost, return the starting gas station's
+// index if you can travel around the circuit once in the clockwise direction,
+// otherwise return -1. If there exists a solution, it is guaranteed to be
+// unique
+func canCompleteCircuit(gas []int, cost []int) int {
+	var currentPosition, startingPosition, tank, nPositions int
+	nPositions = len(gas)
+	tank = gas[0]
+	for {
+		nextPosition := (currentPosition + 1) % nPositions
+		if cost[currentPosition] > tank {
+			if nextPosition <= startingPosition {
+				startingPosition = -1
+				break
+			}
+
+			currentPosition = nextPosition
+			startingPosition = nextPosition
+			tank = gas[currentPosition]
+			continue
+		}
+
+		tank -= cost[currentPosition]
+		currentPosition = nextPosition
+		tank += gas[currentPosition]
+
+		if currentPosition == startingPosition {
+			break
+		}
+	}
+
+	return startingPosition
+}
+
 // Given an array of integers citations where citations[i] is the number of
 // citations a researcher received for their ith paper, return the researcher's
 // h-index.

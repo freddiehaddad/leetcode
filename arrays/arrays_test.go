@@ -5,6 +5,33 @@ import (
 	"testing"
 )
 
+func TestCanCompleteCircuit(t *testing.T) {
+	tests := []struct {
+		gas      []int
+		cost     []int
+		expected int
+	}{
+		{
+			[]int{1, 2, 3, 4, 5},
+			[]int{3, 4, 5, 1, 2},
+			3,
+		},
+		{
+			[]int{2, 3, 4},
+			[]int{3, 4, 3},
+			-1,
+		},
+	}
+
+	for i, test := range tests {
+		start := canCompleteCircuit(test.gas, test.cost)
+		if test.expected != start {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, start)
+		}
+	}
+}
+
 func TestCanJump(t *testing.T) {
 	tests := []struct {
 		input    []int
