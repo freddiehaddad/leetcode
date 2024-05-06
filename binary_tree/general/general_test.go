@@ -67,6 +67,68 @@ func TestBuildTreePI(t *testing.T) {
 	}
 }
 
+func TestConnect(t *testing.T) {
+	tests := []struct {
+		preorder []int
+		inorder  []int
+		expected [][]int
+	}{
+		{
+			[]int{1, 2, 4, 5, 3, 7},
+			[]int{4, 2, 5, 1, 3, 7},
+			[][]int{{1}, {2, 3}, {4, 5, 7}},
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreePI(test.preorder, test.inorder)
+		tree = connect(tree)
+		checkBreathFirst(t, i, tree, test.expected)
+	}
+}
+
+func checkBreathFirst(
+	t *testing.T, ti int, root *TreeNode, expected [][]int,
+) {
+	var level int
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		if len(queue) != len(expected[level]) {
+			t.Errorf(
+				"[%d] length error. level=%d expected=%d got=%d",
+				ti, level, len(expected[level]), len(queue),
+			)
+		}
+
+		iter := queue[0]
+		for i := 0; i < len(expected[level]); i++ {
+			node := queue[i]
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+
+			if iter.Val != expected[level][i] {
+				t.Errorf("[%d] value wrong. level=%d expected=%d got=%d",
+					ti, level, expected[level][i], iter.Val,
+				)
+			}
+
+			iter = iter.Next
+		}
+		if iter != nil {
+			t.Errorf("[%d] iter wrong. level=%d expected=%v got=%v",
+				ti, level, nil, iter,
+			)
+		}
+		queue = queue[len(expected[level]):]
+		level++
+	}
+}
+
 func getInorderSlice(root *TreeNode) []int {
 	var order []int
 	var inorder func(*TreeNode)
