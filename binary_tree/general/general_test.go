@@ -87,6 +87,52 @@ func TestConnect(t *testing.T) {
 	}
 }
 
+func TestFlatten(t *testing.T) {
+	tests := []struct {
+		preorder []int
+		inorder  []int
+	}{
+		{
+			[]int{1, 2, 3, 4, 5, 6},
+			[]int{3, 2, 4, 1, 5, 6},
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreePI(test.preorder, test.inorder)
+		flatten(tree)
+		for _, val := range test.preorder {
+			if tree == nil {
+				t.Errorf(
+					"[%d] node is nil. expected=%d", i, val,
+				)
+				continue
+			}
+			if tree.Val != val {
+				t.Errorf(
+					"[%d] value wrong. expected=%d got=%d",
+					i, val, tree.Val,
+				)
+			}
+			if tree.Left != nil {
+				t.Errorf(
+					"[%d] left wrong. expected=%v got=%v",
+					i, nil, tree,
+				)
+			}
+			tree = tree.Right
+		}
+		if tree != nil {
+			t.Errorf(
+				"[%d] node not nil. expected=%v got=%v",
+				i, nil, tree,
+			)
+			continue
+		}
+
+	}
+}
+
 func checkBreathFirst(
 	t *testing.T, ti int, root *TreeNode, expected [][]int,
 ) {

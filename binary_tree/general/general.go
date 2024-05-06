@@ -86,3 +86,28 @@ func connect(root *TreeNode) *TreeNode {
 
 	return root
 }
+
+// 114. Flatten Binary Tree to Linked List
+//
+// Given the root of a binary tree, flatten the tree into a "linked list":
+//
+//  1. The "linked list" should use the same TreeNode class where the right
+//     child pointer points to the next node in the list and the left child
+//     pointer is always null.
+//  2. The "linked list" should be in the same order as a pre-order
+//     traversal of the binary tree.
+func flatten(root *TreeNode) {
+	for root != nil {
+		if root.Left != nil {
+			iter := root.Left
+			for iter.Right != nil {
+				iter = iter.Right
+			}
+
+			iter.Right = root.Right
+			root.Right = root.Left
+			root.Left = nil
+		}
+		root = root.Right
+	}
+}
