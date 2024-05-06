@@ -159,6 +159,30 @@ func TestHasPathSum(t *testing.T) {
 	}
 }
 
+func TestSumNumbers(t *testing.T) {
+	tests := []struct {
+		preorder []int
+		inorder  []int
+		expected int
+	}{
+		{
+			[]int{4, 9, 5, 1, 0},
+			[]int{5, 9, 1, 4, 0},
+			1026,
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreePI(test.preorder, test.inorder)
+		result := sumNumbers(tree)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, result,
+			)
+		}
+	}
+}
+
 func checkBreathFirst(
 	t *testing.T, ti int, root *TreeNode, expected [][]int,
 ) {

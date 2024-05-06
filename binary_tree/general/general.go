@@ -145,3 +145,38 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 
 	return false
 }
+
+// 129. Sum Root to Leaf Numbers
+//
+// You are given the root of a binary tree containing digits from 0 to 9 only.
+// Each root-to-leaf path in the tree represents a number. For example, the
+// root-to-leaf path 1 -> 2 -> 3 represents the number 123.
+//
+// Return the total sum of all root-to-leaf numbers. Test cases are generated
+// so that the answer will fit in a 32-bit integer. A leaf node is a node with
+// no children.
+func sumNumbers(root *TreeNode) int {
+	var sum int
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		if node.Left == nil && node.Right == nil {
+			sum += node.Val
+			continue
+		}
+
+		if node.Left != nil {
+			left := node.Left
+			left.Val = node.Val*10 + left.Val
+			queue = append(queue, left)
+		}
+
+		if node.Right != nil {
+			right := node.Right
+			right.Val = node.Val*10 + right.Val
+			queue = append(queue, right)
+		}
+	}
+	return sum
+}
