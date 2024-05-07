@@ -27,17 +27,17 @@ func canJump(nums []int) bool {
 // index i. In other words, if you are at nums[i], you can jump to any
 // nums[i+j] where:
 //
-//   1. 0 <= j <= nums[i]
-//   2. i + j < n
+//  1. 0 <= j <= nums[i]
+//  2. i + j < n
 //
 // Return the minimum number of jumps to reach nums[n-1]. The test cases are
 // generated such that you can reach nums[n-1].
 //
 // Constraints:
 //
-//   1. 1 <= nums.length <= 10^4
-//   2. 0 <= nums[i] <= 1000
-//   3. It's guaranteed that you can reach nums[n-1]
+//  1. 1 <= nums.length <= 10^4
+//  2. 0 <= nums[i] <= 1000
+//  3. It's guaranteed that you can reach nums[n-1]
 func canJumpII(nums []int) int {
 	var farthest, jumps, nextJump int
 	for i := 0; i < len(nums)-1; i++ {
@@ -98,8 +98,8 @@ func canCompleteCircuit(gas []int, cost []int) int {
 // You are giving candies to these children subjected to the following
 // requirements:
 //
-//   1. Each child must have at least one candy.
-//   2. Children with a higher rating get more candies than their neighbors.
+//  1. Each child must have at least one candy.
+//  2. Children with a higher rating get more candies than their neighbors.
 //
 // Return the minimum number of candies you need to have to distribute the
 // candies to the children.
@@ -290,11 +290,11 @@ func productExceptSelf(nums []int) []int {
 // Consider the number of unique elements of nums to be k, to get accepted, you
 // need to do the following things:
 //
-//   1. Change the array nums such that the first k elements of nums contain
-//      the unique elements in the order they were present in nums initially.
-//      The remaining elements of nums are not important as well as the size of
-//      nums.
-//   2. Return k.
+//  1. Change the array nums such that the first k elements of nums contain
+//     the unique elements in the order they were present in nums initially.
+//     The remaining elements of nums are not important as well as the size of
+//     nums.
+//  2. Return k.
 func removeDuplicates(nums []int) int {
 	k := 1
 	for i := 1; i < len(nums); i++ {
@@ -345,10 +345,10 @@ func removeDuplicatesII(nums []int) int {
 // Consider the number of elements in nums which are not equal to val be k, to
 // get accepted, you need to do the following things:
 //
-//   1. Change the array nums such that the first k elements of nums contain
-//      the elements which are not equal to val. The remaining elements of nums
-//      are not important as well as the size of nums.
-//   2. Return k.
+//  1. Change the array nums such that the first k elements of nums contain
+//     the elements which are not equal to val. The remaining elements of nums
+//     are not important as well as the size of nums.
+//  2. Return k.
 func removeElement(nums []int, val int) int {
 	var k int
 	for i := 0; i < len(nums); i++ {
