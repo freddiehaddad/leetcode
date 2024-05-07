@@ -280,6 +280,34 @@ func TestMaxSubArray(t *testing.T) {
 	}
 }
 
+func TestMaxSubarraySumCircular(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{1, -2, 3, -2},
+			3,
+		},
+		{
+			[]int{5, -3, 5},
+			10,
+		},
+		{
+			[]int{-3, -2, -3},
+			-2,
+		},
+	}
+
+	for i, test := range tests {
+		result := maxSubarraySumCircular(test.input)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, result)
+		}
+	}
+}
+
 func TestMerge(t *testing.T) {
 	tests := []struct {
 		nums1    []int

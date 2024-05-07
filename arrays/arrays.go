@@ -245,6 +245,43 @@ func maxSubArray(nums []int) int {
 	return bestSum
 }
 
+// 918. Maximum Sum Circular Subarray
+//
+// Given a circular integer array nums of length n, return the maximum possible
+// sum of a non-empty subarray of nums.
+//
+// A circular array means the end of the array connects to the beginning of the
+// array. Formally, the next element of nums[i] is nums[(i + 1) % n] and the
+// previous element of nums[i] is nums[(i - 1 + n) % n].
+//
+// A subarray may only include each element of the fixed buffer nums at most
+// once. Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there
+// does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
+//
+// Constraints:
+//
+//  1. n == nums.length
+//  2. 1 <= n <= 3 * 104
+//  3. -3 * 104 <= nums[i] <= 3 * 104
+func maxSubarraySumCircular(nums []int) int {
+	bestMinSum, bestMaxSum := math.MaxInt, math.MinInt
+	var currentMinSum, currentMaxSum, totalSum int
+
+	for _, num := range nums {
+		currentMinSum = min(num, currentMinSum+num)
+		bestMinSum = min(bestMinSum, currentMinSum)
+		currentMaxSum = max(num, currentMaxSum+num)
+		bestMaxSum = max(bestMaxSum, currentMaxSum)
+		totalSum += num
+	}
+
+	if bestMaxSum > 0 {
+		return max(bestMaxSum, totalSum-bestMinSum)
+	}
+
+	return bestMaxSum
+}
+
 // You are given two integer arrays nums1 and nums2, sorted in non-decreasing
 // order, and two integers m and n, representing the number of elements in
 // nums1 and nums2 respectively.
