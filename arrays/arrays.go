@@ -1,5 +1,7 @@
 package arrays
 
+import "math"
+
 // You are given an integer array nums. You are initially positioned at the
 // array's first index, and each element in the array represents your maximum
 // jump length at that position.
@@ -221,6 +223,26 @@ func maxProfitII(prices []int) int {
 		price = min(price, val)
 	}
 	return profit
+}
+
+// 53. Maximum Subarray
+//
+// Given an integer array nums, find the subarray with the largest sum, and
+// return its sum.
+//
+// Constraints:
+//
+//  1. 1 <= nums.length <= 105
+//  2. -104 <= nums[i] <= 104
+func maxSubArray(nums []int) int {
+	bestSum := math.MinInt
+	currentSum := 0
+	for _, num := range nums {
+		currentSum = max(num, currentSum+num)
+		bestSum = max(bestSum, currentSum)
+
+	}
+	return bestSum
 }
 
 // You are given two integer arrays nums1 and nums2, sorted in non-decreasing

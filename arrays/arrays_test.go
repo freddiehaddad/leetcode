@@ -260,6 +260,26 @@ func TestMaxProfitII(t *testing.T) {
 	}
 }
 
+func TestMaxSubArray(t *testing.T) {
+	tests := []struct {
+		input    []int
+		expected int
+	}{
+		{
+			[]int{-2, 1, -3, 4, -1, 2, 1, -5, 4},
+			6,
+		},
+	}
+
+	for i, test := range tests {
+		result := maxSubArray(test.input)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%d got=%d",
+				i, test.expected, result)
+		}
+	}
+}
+
 func TestMerge(t *testing.T) {
 	tests := []struct {
 		nums1    []int
