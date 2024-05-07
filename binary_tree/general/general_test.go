@@ -159,6 +159,37 @@ func TestHasPathSum(t *testing.T) {
 	}
 }
 
+func TestLowestCommonAncestor(t *testing.T) {
+	tests := []struct {
+		preorder []int
+		inorder  []int
+		p        int
+		q        int
+		a        int
+	}{
+		{
+			[]int{3, 5, 6, 2, 7, 4, 1, 0, 8},
+			[]int{6, 5, 7, 2, 4, 3, 0, 1, 8},
+			2,
+			0,
+			3,
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreePI(test.preorder, test.inorder)
+		p := findNode(tree, test.p)
+		q := findNode(tree, test.q)
+		a := findNode(tree, test.a)
+		result := lowestCommonAncestor(tree, p, q)
+		if a != result {
+			t.Errorf("[%d] result wrong. expected=%v got=%v",
+				i, a, result,
+			)
+		}
+	}
+}
+
 func TestSumNumbers(t *testing.T) {
 	tests := []struct {
 		preorder []int
@@ -223,6 +254,28 @@ func checkBreathFirst(
 		queue = queue[len(expected[level]):]
 		level++
 	}
+}
+
+func findNode(node *TreeNode, val int) *TreeNode {
+	if node.Val == val {
+		return node
+	}
+
+	var left *TreeNode
+	if node.Left != nil {
+		left = findNode(node.Left, val)
+	}
+
+	if left != nil {
+		return left
+	}
+
+	var right *TreeNode
+	if node.Right != nil {
+		right = findNode(node.Right, val)
+	}
+
+	return right
 }
 
 func getInorderSlice(root *TreeNode) []int {

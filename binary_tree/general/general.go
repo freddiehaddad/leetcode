@@ -146,6 +146,47 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 	return false
 }
 
+// 236. Lowest Common Ancestor of a Binary Tree
+//
+// Given a binary tree, find the lowest common ancestor (LCA) of two given
+// nodes in the tree.
+//
+// According to the definition of LCA on Wikipedia: “The lowest common ancestor
+// is defined between two nodes p and q as the lowest node in T that has both p
+// and q as descendants (where we allow a node to be a descendant of itself).”
+//
+// Constraints:
+//
+//  1. The number of nodes in the tree is in the range [2, 105].
+//  2. -109 <= Node.val <= 109
+//  3. All Node.val are unique.
+//  4. p != q
+//  5. p and q will exist in the tree.
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == p || root == q {
+		return root
+	}
+
+	var left, right *TreeNode
+	if root != nil {
+		left = lowestCommonAncestor(root.Left, p, q)
+	}
+
+	if root != nil {
+		right = lowestCommonAncestor(root.Right, p, q)
+	}
+
+	if left != nil && right != nil {
+		return root
+	}
+
+	if left != nil {
+		return left
+	}
+
+	return right
+}
+
 // 129. Sum Root to Leaf Numbers
 //
 // You are given the root of a binary tree containing digits from 0 to 9 only.
