@@ -606,3 +606,32 @@ func TestRemoveElement(t *testing.T) {
 		}
 	}
 }
+
+func TestReverseWords(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			"the sky is blue",
+			"blue is sky the",
+		},
+		{
+			"  hello world  ",
+			"world hello",
+		},
+		{
+			"a good   example",
+			"example good a",
+		},
+	}
+
+	for i, test := range tests {
+		result := reverseWords(test.input)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%q got=%q",
+				i, test.expected, result,
+			)
+		}
+	}
+}

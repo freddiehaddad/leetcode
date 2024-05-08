@@ -1,6 +1,9 @@
 package arrays
 
-import "math"
+import (
+	"math"
+	"strings"
+)
 
 // You are given an integer array nums. You are initially positioned at the
 // array's first index, and each element in the array represents your maximum
@@ -418,6 +421,52 @@ func removeElement(nums []int, val int) int {
 	}
 
 	return k
+}
+
+// 151. Reverse Words in a String
+//
+// Given an input string s, reverse the order of the words.
+//
+// A word is defined as a sequence of non-space characters. The words in s will
+// be separated by at least one space.
+//
+// Return a string of the words in reverse order concatenated by a single
+// space.
+//
+// Note that s may contain leading or trailing spaces or multiple spaces
+// between two words. The returned string should only have a single space
+// separating the words. Do not include any extra spaces.
+//
+// Constraints:
+//
+//  1. 1 <= s.length <= 104
+//  2. s contains English letters (upper-case and lower-case), digits, and
+//     spaces ' '
+//  3. There is at least one word in s
+func reverseWords(s string) string {
+	var sb strings.Builder
+
+	var i, j int
+	j = len(s) - 1
+	sep := ""
+	for j >= 0 {
+		for ; j >= 0 && s[j] == ' '; j-- {
+		}
+
+		for i = j; i >= 0 && s[i] != ' '; i-- {
+		}
+
+		if i == j {
+			break
+		}
+
+		sb.WriteString(sep)
+		sb.WriteString(string(s[i+1 : j+1]))
+		sep = " "
+		j = i
+	}
+
+	return sb.String()
 }
 
 // Given an integer array nums, rotate the array to the right by k steps, where
