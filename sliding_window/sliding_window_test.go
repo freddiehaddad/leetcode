@@ -22,3 +22,24 @@ func TestCharacterReplacement(t *testing.T) {
 		}
 	}
 }
+
+func TestCheckInclusion(t *testing.T) {
+	tests := []struct {
+		input_s1 string
+		input_s2 string
+		expected bool
+	}{
+		{"ab", "eidbaooo", true},
+		{"ab", "eidboaoo", false},
+		{"abc", "aabaaccab", true},
+	}
+
+	for i, test := range tests {
+		result := checkInclusion(test.input_s1, test.input_s2)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%t got=%t",
+				i, test.expected, result,
+			)
+		}
+	}
+}
