@@ -44,6 +44,51 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	return head.Next
 }
 
+// 19. Remove Nth Node From End of List
+//
+// Given the head of a linked list, remove the nth node from the end of the
+// list and return its head.
+//
+// Example 1:
+//
+// Input: head = [1,2,3,4,5], n = 2 Output: [1,2,3,5]
+//
+// Example 2:
+//
+// Input: head = [1], n = 1 Output: []
+//
+// Example 3:
+//
+// Input: head = [1,2], n = 1 Output: [1]
+//
+// Constraints:
+//
+//  1. The number of nodes in the list is sz.
+//  2. 1 <= sz <= 30
+//  3. 0 <= Node.val <= 100
+//  4. 1 <= n <= sz
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	h := head
+	t := head
+	for ; n > 0; n-- {
+		t = t.Next
+	}
+
+	if t == nil {
+		return head.Next
+	}
+
+	i := t.Next
+	for ; i != nil; i = i.Next {
+		h = h.Next
+		t = t.Next
+	}
+
+	remove := h.Next
+	h.Next = remove.Next
+	return head
+}
+
 // 92. Reverse Linked List II
 //
 // Given the head of a singly linked list and two integers left and right where
