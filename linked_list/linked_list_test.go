@@ -64,6 +64,66 @@ func TestMergeTwoLists(t *testing.T) {
 	}
 }
 
+func TestReverseBetween(t *testing.T) {
+	tests := []struct {
+		input    []int
+		start    int
+		end      int
+		expected []int
+	}{
+		{
+			[]int{1, 2, 3, 4, 5},
+			1,
+			3,
+			[]int{3, 2, 1, 4, 5},
+		},
+		{
+			[]int{1, 2, 3, 4, 5},
+			2,
+			4,
+			[]int{1, 4, 3, 2, 5},
+		},
+		{
+			[]int{1, 2, 3, 4, 5},
+			3,
+			5,
+			[]int{1, 2, 5, 4, 3},
+		},
+	}
+
+	for i, test := range tests {
+		input := generateLinkedList(test.input)
+		expected := generateLinkedList(test.expected)
+		result := reverseBetween(input, test.start, test.end)
+
+		for input != nil && result != nil {
+			if expected.Val != result.Val {
+				t.Errorf("[%d] value wrong. expected=%d got=%d",
+					i, expected.Val, result.Val,
+				)
+			}
+			expected = expected.Next
+			result = result.Next
+		}
+
+		if expected != nil {
+			t.Errorf("[%d] result wrong. missing elments:", i)
+			for expected != nil {
+				t.Errorf("  expected.Val=%d", expected.Val)
+				expected = expected.Next
+			}
+		}
+
+		if result != nil {
+			t.Errorf("[%d] result wrong. extra elments:", i)
+			for result != nil {
+				t.Errorf("  expected.Val=%d", result.Val)
+				result = result.Next
+			}
+		}
+	}
+}
+
 func generateLinkedList(values []int) *ListNode {
 	head := &ListNode{}
 	iter := head
