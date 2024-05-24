@@ -159,6 +159,40 @@ func TestHasPathSum(t *testing.T) {
 	}
 }
 
+func TestIsValidBST(t *testing.T) {
+	tests := []struct {
+		preorder []int
+		inorder  []int
+		expected bool
+	}{
+		{
+			[]int{2, 1, 3},
+			[]int{1, 2, 3},
+			true,
+		},
+		{
+			[]int{5, 1, 4, 3, 6},
+			[]int{1, 5, 3, 4, 6},
+			false,
+		},
+		{
+			[]int{25, 20, 15, 22, 35, 45},
+			[]int{15, 20, 22, 25, 35, 45},
+			true,
+		},
+	}
+
+	for i, test := range tests {
+		tree := buildTreePI(test.preorder, test.inorder)
+		result := isValidBST(tree)
+		if test.expected != result {
+			t.Errorf("[%d] result wrong. expected=%t got=%t",
+				i, test.expected, result,
+			)
+		}
+	}
+}
+
 func TestLowestCommonAncestor(t *testing.T) {
 	tests := []struct {
 		preorder []int

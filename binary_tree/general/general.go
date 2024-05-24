@@ -146,6 +146,52 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 	return false
 }
 
+// 98. Validate Binary Search Tree
+//
+// Given the root of a binary tree, determine if it is a valid binary search
+// tree (BST).
+//
+// A valid BST is defined as follows:
+//
+//  1. The left subtree of a node contains only nodes with keys less than
+//     the node's key.
+//  2. The right subtree of a node contains only nodes with keys greater
+//     than the node's key.
+//  3. Both the left and right subtrees must also be binary search trees.
+//
+// Example 1:
+//
+// Input: root = [2,1,3] Output: true
+//
+// Example 2:
+//
+// Input: root = [5,1,4,null,null,3,6] Output: false Explanation: The root
+// node's value is 5 but its right child's value is 4.
+//
+// Constraints:
+//
+//  1. The number of nodes in the tree is in the range [1, 104].
+//  2. -231 <= Node.val <= 231 - 1
+func isValidBST(root *TreeNode) bool {
+	var validate func(*TreeNode, *TreeNode) (*TreeNode, bool)
+	validate = func(node, previous *TreeNode) (*TreeNode, bool) {
+		if node == nil {
+			return previous, true
+		}
+		previous, ok := validate(node.Left, previous)
+		if !ok {
+			return previous, ok
+		}
+		if previous != nil && previous.Val >= node.Val {
+			return previous, false
+		}
+		return validate(node.Right, node)
+	}
+
+	_, valid := validate(root, nil)
+	return valid
+}
+
 // 236. Lowest Common Ancestor of a Binary Tree
 //
 // Given a binary tree, find the lowest common ancestor (LCA) of two given
